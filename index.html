@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/home/pi/Desktop/node/style.css">
+    <style>
+  .card{
+    background-color: greenyellow;
+    color: rgb(255, 245, 105);
+    margin-top: 7em;
+    margin-left: 42em;
+    background:rgb(87, 197, 160);
+    border-radius: 2px;
+    border: solid rgb(80, 55, 138) 2px;
+  }
+  *{
+      box-sizing: border-box;
+  }
+  body{
+      background:seashell
+  }
+  #newQ:hover {
+  color: red;
+  background-color:rgb(143, 211, 143);
+}
+#newQ{
+    color: yellow;
+    background-color: teal;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+.card-title{
+    font-style: italic;
+}
+.card-text{
+    font-style: italic;
+}
+    </style>
+</head>
+<body>
+         
+        
+          
+    
+
+    
+    
+    <div class="card" style="width: 18.8em;" margin-top="7;">
+        <img src="/home/pi/Desktop/node/imk/quotes.png" class="card-img-top" alt="..." height="200" width="300" >
+        <div class="card-body">
+          <h3 class="card-title">Motivation Quotes </h3>
+          <p class="card-text"><div id="quotes"></div></p>
+          <p class="author"><div id="author"></div></p>
+          <button id="newQ">New Quotes</button>
+        </div>
+      </div>
+ 
+     
+    <script>
+        const quotes = document.getElementById("quotes");
+        const author = document.getElementById("author");
+        const newQ = document.getElementById('newQ');
+        let realData = "";
+
+        const getNewQuotes = () => {
+           let rnum = Math.floor(Math.random() * 1500);
+           
+           quotes.innerText = `${realData[rnum].text}`;
+           author.innerText = `${realData[rnum].author}`;
+       };
+
+       const getQuotes = async () => {
+        const api = "https://type.fit/api/quotes";
+        try {
+         let data = await fetch(api);
+         realData = await data.json();
+            getNewQuotes();
+            // console.log(realData[0].text);
+            // console.log(realData[0].author);
+        } catch (error) {}
+        };
+        newQ.addEventListener('click',getNewQuotes);
+        getQuotes();
+    </script>
+</body>
+</html>
